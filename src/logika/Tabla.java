@@ -93,6 +93,7 @@ public class Tabla {
         }
     }
 
+    
     private Jel aGyoztes(Koordinata k) {
         // megnezi, hogy van-e gyoztes, es ha igen, akkor
         // visszater egy Jel-lel, aminek az erteke 1, -1, vagy 0
