@@ -23,8 +23,7 @@ public class Amoba2 {
         
         Tabla tabla = new Tabla(meret, darabJelGyozelemhez);
         tabla.kisJatekFuttatas();
-        
-        
+  
     }
     
 }
