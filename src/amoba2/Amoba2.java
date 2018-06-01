@@ -19,8 +19,9 @@ public class Amoba2 {
     public static void main(String[] args) {
         
         int meret=3;
+        int darabJelGyozelemhez=3;
         
-        Tabla tabla = new Tabla(meret);
+        Tabla tabla = new Tabla(meret, darabJelGyozelemhez);
         tabla.kisJatekFuttatas();
         
         

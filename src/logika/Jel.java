@@ -9,24 +9,33 @@ package logika;
  *
  * @author Progj11
  */
-public abstract class Jel {
+public class Jel {
     
-    private String nev;
+    private int jelErtek;
 
     public Jel() {
     }
 
-    public String getNev() {
-        return nev;
+    public Jel(int jelErtek) {
+        this.jelErtek = jelErtek;
     }
 
-    public void setNev(String nev) {
-        this.nev = nev;
+    public int getJelErtek() {
+        return jelErtek;
     }
+
+    public void setJelErtek(int jelErtek) {
+        this.jelErtek = jelErtek;
+    }
+
+    
 
     @Override
     public String toString() {
-        return nev;
+        if (jelErtek==1) {
+            return "X";
+        }
+        return "O";
     }
     
     

@@ -95,7 +95,7 @@ public class Tabla {
 
     private Jel aGyoztes(Koordinata k) {
         // megnezi, hogy van-e gyoztes, es ha igen, akkor
-        // visszater egy Jel-lel, ami vagy JelX, vagy JelO, vagy null
+        // visszater egy Jel-lel, aminek az erteke 1, -1, vagy 0
         // a jatek persze addig folytatodik, amig ez a aGyoztes null
         // az utolso lerakott jel koordinatajatol megnezi az osszes vonalat, atlot
         // vegiglepked rajta, es nezi, hogy van-e egymas mellett eleg ugyanolyan jel
@@ -104,23 +104,26 @@ public class Tabla {
 
         int darabEgymasMellett = 0;
         // aki utoljara lep, annak a jele:
-        Jel utolsoJel = tabla[k.getX()][k.getY()];
-        
-        int induloIndexY = 0;
-        // vizszintesen megnezi
-        do {
+        // ha ervenyes mezobe tett, csak akkor hajtjuk vegre
+        if (belulVanE(k) && uresE(k)) {
+            Jel utolsoJel = tabla[k.getX()][k.getY()];
+
+            int induloIndexY = 0;
+            // vizszintesen megnezi
+            do {
             if (tabla[k.getX()][induloIndexY].getJelErtek()==utolsoJel.getJelErtek()) {
                 darabEgymasMellett++;
             } else {
                 darabEgymasMellett=0;
             }
-            induloIndexY++;
-        } while (darabEgymasMellett < darabJelGyozelemhez && induloIndexY<meret);
+                induloIndexY++;
+            } while (darabEgymasMellett < darabJelGyozelemhez && induloIndexY < meret);
 
-        if (darabEgymasMellett>=darabJelGyozelemhez) {
-            System.out.println("Gyozelem!!!");
+            if (darabEgymasMellett >= darabJelGyozelemhez) {
+                System.out.println("Gyozelem!!!");
+            }
+
         }
-        
         return null;
     }
 
@@ -133,11 +136,9 @@ public class Tabla {
             // egyszer az egyik, masszor a masik jo
             // kettovel valo osztas maradeka egyszer 1, egyszer 0
             if (lepesSzam % 2 == 1) {
-                //JelX elhelyezendoJelForras = new JelX();
                 elhelyezendoJel = new Jel(1);
             } else {
-                //JelO elhelyezendoJelForras = new JelO();
-                 elhelyezendoJel = new Jel(-1);
+                elhelyezendoJel = new Jel(-1);
             }
 
             k = bekertKoordinata(elhelyezendoJel);
