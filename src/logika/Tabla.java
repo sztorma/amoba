@@ -102,28 +102,70 @@ public class Tabla {
         // ha van, akkor kipel, es visszaadja a gyoztes jelet
         // sor vegigjarasa
 
+        boolean gyozelem = false;
         int darabEgymasMellett = 0;
         // aki utoljara lep, annak a jele:
         // ha ervenyes mezobe tett, csak akkor hajtjuk vegre
-        if (belulVanE(k) && uresE(k)) {
+        if (belulVanE(k)) {
             Jel utolsoJel = tabla[k.getX()][k.getY()];
 
             int induloIndexY = 0;
             // vizszintesen megnezi
+
             do {
-            if (tabla[k.getX()][induloIndexY].getJelErtek()==utolsoJel.getJelErtek()) {
-                darabEgymasMellett++;
-            } else {
-                darabEgymasMellett=0;
-            }
+                // ha nem null az adott mezo, akkor hajtjuk vegre
+                if (tabla[k.getX()][induloIndexY] != null) {
+                    // megnezi, hogy az adott ertek stimmel-e
+                    if (tabla[k.getX()][induloIndexY].getJelErtek() == utolsoJel.getJelErtek()) {
+                        darabEgymasMellett++;
+                    } else {
+                        darabEgymasMellett = 0;
+                    }
+                } else {
+                    darabEgymasMellett = 0;
+                }
+
                 induloIndexY++;
+
             } while (darabEgymasMellett < darabJelGyozelemhez && induloIndexY < meret);
 
             if (darabEgymasMellett >= darabJelGyozelemhez) {
-                System.out.println("Gyozelem!!!");
+                gyozelem = true;
             }
 
+            int induloIndexX = 0;
+            // vizszintesen megnezi
+
+            do {
+                // ha nem null az adott mezo, akkor hajtjuk vegre
+                if (tabla[induloIndexX][k.getY()] != null) {
+                    // megnezi, hogy az adott ertek stimmel-e
+                    if (tabla[induloIndexX][k.getY()].getJelErtek() == utolsoJel.getJelErtek()) {
+                        darabEgymasMellett++;
+                    } else {
+                        darabEgymasMellett = 0;
+                    }
+                } else {
+                    darabEgymasMellett = 0;
+                }
+
+                induloIndexX++;
+
+            } while (darabEgymasMellett < darabJelGyozelemhez && induloIndexX < meret);
+
+            if (darabEgymasMellett >= darabJelGyozelemhez) {
+                gyozelem = true;
+            }
+
+            if (gyozelem == true) {
+                System.out.println("Győzelem!!!");
+            }
+
+            if (gyozelem) {
+                return utolsoJel;
+            }
         }
+
         return null;
     }
 
@@ -133,7 +175,7 @@ public class Tabla {
         Koordinata k;
         do {
             Jel elhelyezendoJel;
-            // egyszer az egyik, masszor a masik jo
+            // egyszer az egyik, masszor a masik jon
             // kettovel valo osztas maradeka egyszer 1, egyszer 0
             if (lepesSzam % 2 == 1) {
                 elhelyezendoJel = new Jel(1);
@@ -148,11 +190,9 @@ public class Tabla {
                 lepesSzam++;
             }
 
-            aGyoztes(k);
-
             kirajzolas();
         } while (aGyoztes(k) == null);
-        pontOsztas(aGyoztes(k));
+        //pontOsztas(aGyoztes(k));
     }
 
     private void kirajzolas() {
