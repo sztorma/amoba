@@ -18,7 +18,7 @@ public class Amoba2 {
      */
     public static void main(String[] args) {
         
-        int meret=3;
+        int meret=5;
         int darabJelGyozelemhez=3;
         
         Tabla tabla = new Tabla(meret, darabJelGyozelemhez);

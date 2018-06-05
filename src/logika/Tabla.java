@@ -133,6 +133,7 @@ public class Tabla {
                 gyozelem = true;
             }
 
+            darabEgymasMellett = 0;
             int induloIndexX = 0;
             // vizszintesen megnezi
 
@@ -153,6 +154,48 @@ public class Tabla {
 
             } while (darabEgymasMellett < darabJelGyozelemhez && induloIndexX < meret);
 
+            if (darabEgymasMellett >= darabJelGyozelemhez) {
+                gyozelem = true;
+            }
+
+            // elso atlo bal felsobol jobb alulra - foatlo
+            // megnezzuk, hogy a foatlo alatt vagy felett vagyunk-e
+            boolean foatloAlatt = false;
+            if (k.getX() >= k.getY()) {
+                foatloAlatt = true;
+            }
+
+            // foatlo alatt az x biztos, hogy nullarol indul
+            int Szamlalo = 0;
+            darabEgymasMellett=0;
+            
+            int x = 0;
+            int y = 0;
+
+            if (foatloAlatt) {
+                x = k.getX() - k.getY();
+            } else {
+                y = k.getY() - k.getX();
+            }
+
+            do {
+                // ha nem null az adott mezo, akkor hajtjuk vegre
+                if (tabla[x + Szamlalo][y + Szamlalo] != null) {
+                    // megnezi, hogy az adott ertek stimmel-e
+                    if (tabla[x + Szamlalo][y + Szamlalo].getJelErtek() == utolsoJel.getJelErtek()) {
+                        darabEgymasMellett++;
+                    } else {
+                        darabEgymasMellett = 0;
+                    }
+                } else {
+                    darabEgymasMellett = 0;
+                }
+
+                Szamlalo++;
+            } while (darabEgymasMellett < darabJelGyozelemhez && 
+                    (x + Szamlalo) < meret && (y + Szamlalo) < meret);
+
+            
             if (darabEgymasMellett >= darabJelGyozelemhez) {
                 gyozelem = true;
             }
